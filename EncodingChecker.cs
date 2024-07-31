@@ -2,10 +2,9 @@
 
 internal class EncodingChecker
 {
-    public bool CheckEncoding(string file)
+    public bool CheckEncoding(Stream fileStream)
     {
         var buffer = new byte[4];
-        using var fileStream = new FileStream(file, FileMode.Open, FileAccess.Read);
         const int byteCount = 2;
         var read = fileStream.Read(buffer, 0, byteCount);
         if (read != byteCount)

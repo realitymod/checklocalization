@@ -18,7 +18,9 @@ internal class FileChecker
 
     private IEnumerable<FileError> CheckCore(string file)
     {
-        var hasGoodEncoding = _encodingChecker.CheckEncoding(file);
+        
+        using var fileStream = new FileStream(file, FileMode.Open, FileAccess.Read);
+        var hasGoodEncoding = _encodingChecker.CheckEncoding(fileStream);
         if (!hasGoodEncoding)
         {
             yield return new FileError("Wrong encoding: Not UTF-16LE / UCS-2.");
