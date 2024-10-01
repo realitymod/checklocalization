@@ -1,8 +1,9 @@
 ﻿namespace CheckLocalization;
 
-internal class BalanceChecker
+public sealed class BalanceChecker
 {
     private const string EscapeSequence = "\u001B\u001b";
+    // TODO Check for single escape char
 
     private bool _isOpenSequence = false;
 
@@ -36,7 +37,7 @@ internal class BalanceChecker
             return true;
         }
 
-        var hasAtleastOneChar = lastPair > firstPair + 1;
+        var hasAtleastOneChar = lastPair > firstPair + EscapeSequence.Length;
         return hasAtleastOneChar;
     }
 

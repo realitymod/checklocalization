@@ -2,7 +2,7 @@
 
 namespace CheckLocalization;
 
-internal class FileChecker
+internal sealed class FileChecker
 {
     private readonly EncodingChecker _encodingChecker = new();
     private readonly LineEndingChecker _lineEndingChecker = new();

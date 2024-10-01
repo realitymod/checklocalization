@@ -1,6 +1,6 @@
 ﻿namespace CheckLocalization;
 
-internal class EncodingChecker
+internal sealed class EncodingChecker
 {
     public bool CheckEncoding(Stream fileStream)
     {

@@ -1,6 +1,6 @@
 ﻿namespace CheckLocalization;
 
-internal class LineEndingChecker
+internal sealed class LineEndingChecker
 {
     public bool CheckLineEnds(ReadOnlySpan<char> line)
     {
