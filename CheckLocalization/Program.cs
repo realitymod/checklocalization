@@ -1,27 +1,42 @@
 ﻿using CheckLocalization;
 
-var files = Directory.GetFiles(Environment.CurrentDirectory, "*.utxt", SearchOption.AllDirectories);
-var hasAnyErrors = false;
-var fileChecker = new FileChecker();
+var noPause = args.Length == 1 && string.Equals(args[0], "-noPause", StringComparison.OrdinalIgnoreCase);
 
-foreach (var file in files)
+var result = CheckFiles();
+
+if (!noPause)
 {
-    var fileResult = fileChecker.CheckFile(file);
+    Console.WriteLine("Press any key to continue...");
+    Console.ReadKey();
+}
 
-    if (fileResult.Success)
+return result;
+
+int CheckFiles()
+{
+    var files = Directory.GetFiles(Environment.CurrentDirectory, "*.utxt", SearchOption.AllDirectories);
+    var hasAnyErrors = false;
+    var fileChecker = new FileChecker();
+
+    foreach (var file in files)
     {
-        continue;
-    }
+        var fileResult = fileChecker.CheckFile(file);
 
-    hasAnyErrors = true;
-    PrintErrors(file, fileResult.Errors);
+        if (fileResult.Success)
+        {
+            continue;
+        }
+
+        hasAnyErrors = true;
+        PrintErrors(file, fileResult.Errors);
+    }
+    if (!hasAnyErrors)
+    {
+        Console.WriteLine("All files good");
+        return 0;
+    }
+    return -1;
 }
-if (!hasAnyErrors)
-{
-    Console.WriteLine("All files good");
-    return 0;
-}
-return -1;
 
 void PrintErrors(string file, IEnumerable<FileError> errors)
 {
