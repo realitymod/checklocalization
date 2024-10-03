@@ -2,8 +2,11 @@
 
 public sealed class BalanceChecker
 {
+    private const char Escape = '\u001b';
+
     private const string EscapeSequence = "\u001B\u001b";
-    // TODO Check for single escape char
+
+    private const string LineEnd = "\r\n";
 
     private bool _isOpenSequence = false;
 
@@ -12,6 +15,13 @@ public sealed class BalanceChecker
         if (line.Length <= 2)
         {
             return true;
+        }
+
+        var esacpeCount = line.Count(Escape);
+        var isUneven = esacpeCount % 2 == 1;
+        if (isUneven)
+        {
+            return false; 
         }
 
         if (_isOpenSequence)
@@ -33,8 +43,8 @@ public sealed class BalanceChecker
         var isOpenClose = firstPair != lastPair;
         if (!isOpenClose)
         {
-            _isOpenSequence = true;
-            return true;
+            _isOpenSequence = line.EndsWith(LineEnd);
+            return _isOpenSequence;
         }
 
         var hasAtleastOneChar = lastPair > firstPair + EscapeSequence.Length;
