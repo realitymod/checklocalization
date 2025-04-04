@@ -16,10 +16,10 @@ int CheckFiles()
 {
     var files = Directory.GetFiles(Environment.CurrentDirectory, "*.utxt", SearchOption.AllDirectories);
     var hasAnyErrors = false;
-    var fileChecker = new FileChecker();
 
     foreach (var file in files)
     {
+        var fileChecker = new FileChecker();
         var fileResult = fileChecker.CheckFile(file);
 
         if (fileResult.Success)
