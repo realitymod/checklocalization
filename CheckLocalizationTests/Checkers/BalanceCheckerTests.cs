@@ -40,6 +40,14 @@ public class BalanceCheckerTests
     }
 
     [TestMethod]
+    public void CheckBalanceTest_SingleEsc2()
+    {
+        var checker = new BalanceChecker();
+        var isValid = checker.CheckBalance("\u001b\u001b\u001bINVALID\u001b\u001b\u001b");
+        Assert.IsFalse(isValid);
+    }
+
+    [TestMethod]
     public void CheckBalanceTest_SingleEscOpenClose()
     {
         var checker = new BalanceChecker();

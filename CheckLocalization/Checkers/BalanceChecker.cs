@@ -12,12 +12,12 @@ public sealed class BalanceChecker
 
     public bool CheckBalance(ReadOnlySpan<char> line)
     {
-        if (line.Length <= 2)
+        var esacpeCount = line.Count(Escape);
+        if (esacpeCount == 0)
         {
             return true;
         }
 
-        var esacpeCount = line.Count(Escape);
         var isUneven = esacpeCount % 2 == 1;
         if (isUneven)
         {
@@ -26,6 +26,11 @@ public sealed class BalanceChecker
 
         var squenceCount = line.Count(EscapeSequence);
         if (squenceCount > 2)
+        {
+            return false;
+        }
+
+        if (esacpeCount / 2 != squenceCount)
         {
             return false;
         }
