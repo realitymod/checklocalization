@@ -127,8 +127,41 @@ public class BalanceCheckerTests
         var isValid = checker.CheckBalance("\u001b\u001bVALID\r\n");
         Assert.IsTrue(isValid);
 
-        isValid = checker.CheckBalance("VALID\u001b\u001b");
+        isValid = checker.CheckBalance("VALID\u001b\u001b\r\n");
         Assert.IsTrue(isValid);
+    }
+
+    [TestMethod]
+    public void CheckBalanceTest_MultiLineImbalance()
+    {
+        var checker = new BalanceChecker();
+        var isValid = checker.CheckBalance("\u001b\u001bVALID\r\n");
+        Assert.IsTrue(isValid);
+
+        isValid = checker.CheckBalance("VALID\u001b\u001b\u001b\u001b\r\n");
+        Assert.IsFalse(isValid);
+    }
+
+    [TestMethod]
+    public void CheckBalanceTest_MultiLineImbalance2()
+    {
+        var checker = new BalanceChecker();
+        var isValid = checker.CheckBalance("\u001b\u001b\u001b\u001bVALID\r\n");
+        Assert.IsFalse(isValid);
+
+        isValid = checker.CheckBalance("VALID\u001b\u001b\r\n");
+        Assert.IsTrue(isValid);
+    }
+
+    [TestMethod]
+    public void CheckBalanceTest_MultiLineImbalance3()
+    {
+        var checker = new BalanceChecker();
+        var isValid = checker.CheckBalance("\u001b\u001bVALID\r\n");
+        Assert.IsTrue(isValid);
+
+        isValid = checker.CheckBalance("\u001b\u001bVALID\u001b\u001b\r\n");
+        Assert.IsFalse(isValid);
     }
 
     [TestMethod]
@@ -138,7 +171,7 @@ public class BalanceCheckerTests
         var isValid = checker.CheckBalance("\u001b\u001b\r\n");
         Assert.IsTrue(isValid);
 
-        isValid = checker.CheckBalance("\u001b\u001b");
+        isValid = checker.CheckBalance("\u001b\u001b\r\n");
         Assert.IsTrue(isValid);
     }
 
