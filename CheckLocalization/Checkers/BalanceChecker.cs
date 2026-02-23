@@ -24,6 +24,12 @@ public sealed class BalanceChecker
             return false; 
         }
 
+        var squenceCount = line.Count(EscapeSequence);
+        if (squenceCount > 2)
+        {
+            return false;
+        }
+
         if (_isOpenSequence)
         {
             return CheckForCloseSequence(line);

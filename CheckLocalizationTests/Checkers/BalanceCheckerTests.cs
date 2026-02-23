@@ -64,6 +64,14 @@ public class BalanceCheckerTests
     }
 
     [TestMethod]
+    public void CheckBalanceTest_ImbalancedOpen3()
+    {
+        var checker = new BalanceChecker();
+        var isValid = checker.CheckBalance("\u001b\u001b\u001b\u001bINVALID\u001b\u001b");
+        Assert.IsFalse(isValid);
+    }
+
+    [TestMethod]
     public void CheckBalanceTest_ImbalancedClose()
     {
         var checker = new BalanceChecker();
@@ -76,6 +84,15 @@ public class BalanceCheckerTests
     {
         var checker = new BalanceChecker();
         var isValid = checker.CheckBalance("\u001b\u001bINVALID\u001b\u001b\u001b");
+        Assert.IsFalse(isValid);
+    }
+
+    
+    [TestMethod]
+    public void CheckBalanceTest_ImbalancedClose3()
+    {
+        var checker = new BalanceChecker();
+        var isValid = checker.CheckBalance("\u001b\u001bINVALID\u001b\u001b\u001b\u001b");
         Assert.IsFalse(isValid);
     }
 
